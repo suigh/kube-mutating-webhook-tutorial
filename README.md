@@ -86,6 +86,9 @@ kind: Deployment
 metadata:
   name: sleep
 spec:
+  selector:
+    matchLabels:
+      app: sleep
   replicas: 1
   template:
     metadata:
