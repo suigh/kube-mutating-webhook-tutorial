@@ -81,7 +81,7 @@ kube-system   Active    18h
 3. Deploy an app in Kubernetes cluster, take `sleep` app as an example
 ```
 [root@mstnode ~]# cat <<EOF | kubectl create -f -
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sleep
@@ -102,9 +102,5 @@ spec:
 EOF
 ```
 
-4. Verify sidecar container injected
-```
-[root@mstnode ~]# kubectl get pods
-NAME                     READY     STATUS        RESTARTS   AGE
-sleep-5c55f85f5c-tn2cs   2/2       Running       0          1m
-```
+4. With "kc describe pod sleep-xxx", you can see that an extra container "sidecar-nginx" is started. This is triggered by annotation "sidecar-injector-webhook.morven.me/inject"
+
