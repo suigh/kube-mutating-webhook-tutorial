@@ -78,7 +78,7 @@ kube-public   Active    18h
 kube-system   Active    18h
 ```
 
-3. Deploy an app in Kubernetes cluster, take `sleep` app as an example
+3. Deploy an app in Kubernetes cluster, it uses "none" as scheduler name, so it cannot run by default. Take `sleep` app as an example
 ```
 [root@mstnode ~]# cat <<EOF | kubectl create -f -
 apiVersion: apps/v1
@@ -106,5 +106,5 @@ spec:
 EOF
 ```
 
-4. With "kc describe pod sleep-xxx", you can see that an extra container "sidecar-nginx" is started. This is triggered by annotation "sidecar-injector-webhook.morven.me/inject"
+4. The pod in step 3 can run as the schedulerName is changed to "default-scheduler" by this application. The related logic is in function updateScheduler of file webhook.go.
 
