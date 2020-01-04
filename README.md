@@ -86,7 +86,6 @@ kind: Deployment
 metadata:
   name: sleep
 spec:
-  schedulerName: none
   selector:
     matchLabels:
       app: sleep
@@ -98,6 +97,7 @@ spec:
       labels:
         app: sleep
     spec:
+      schedulerName: none
       containers:
       - name: sleep
         image: tutum/curl
