@@ -86,6 +86,7 @@ kind: Deployment
 metadata:
   name: sleep
 spec:
+  schedulerName: none
   selector:
     matchLabels:
       app: sleep
