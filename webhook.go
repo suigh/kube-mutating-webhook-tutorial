@@ -193,6 +193,19 @@ func updateAnnotation(target map[string]string, added map[string]string) (patch 
 	return patch
 }
 
+func updateScheduler(target string) (patch []patchOperation) {
+	if target == "none" {
+		patch = append(patch, patchOperation{
+			Op:    "replace",
+			Path:  "/spec/schedulerName",
+			Value: "default-scheduler",
+		})
+	}
+
+	glog.Infof("updateScheduler: input %s, patch %v.", target, patch)
+	return patch
+}
+
 // create mutation patch for resoures
 func createPatch(pod *corev1.Pod, sidecarConfig *Config, annotations map[string]string) ([]byte, error) {
 	var patch []patchOperation
@@ -200,6 +213,7 @@ func createPatch(pod *corev1.Pod, sidecarConfig *Config, annotations map[string]
 	//patch = append(patch, addContainer(pod.Spec.Containers, sidecarConfig.Containers, "/spec/containers")...)
 	//patch = append(patch, addVolume(pod.Spec.Volumes, sidecarConfig.Volumes, "/spec/volumes")...)
 	patch = append(patch, updateAnnotation(pod.Annotations, annotations)...)
+	patch = append(patch, updateScheduler(pod.Spec.SchedulerName)...)
 
 	return json.Marshal(patch)
 }
