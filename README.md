@@ -106,5 +106,5 @@ spec:
 EOF
 ```
 
-4. The pod in step 3 can run as the schedulerName is changed to "default-scheduler" by this application. The related logic is in function updateScheduler of file webhook.go.
+4. The pod in step 3 can run as the schedulerName is changed to "default-scheduler" by this application. We can also update the scheduler name with by other inputs like namespace.
 
