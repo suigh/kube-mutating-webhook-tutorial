@@ -97,6 +97,10 @@ spec:
       labels:
         app: sleep
     spec:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+          effect: NoSchedule
       schedulerName: none
       containers:
       - name: sleep
